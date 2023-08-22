@@ -1,24 +1,16 @@
-FROM node:lts-alpine
-
-# install simple http server for serving static content
-RUN npm install -g http-server
-
-# make the 'app' folder the current working directory
+# vue.js environment
+FROM node:14-alpine as vue-build
 WORKDIR /app
-
-# copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
-
-# install project dependencies
 RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
-
-# build app for production with minification
+COPY ./ .
 RUN npm run build
 
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# server environment
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=vue-build /app/dist /usr/share/nginx/html
+ENV PORT 8080
+ENV HOST 0.0.0.0
+EXPOSE 8080
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
