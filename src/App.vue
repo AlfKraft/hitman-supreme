@@ -1,26 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Tsau, Wiljar!"/>
+  <router-view/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+//
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+#reg-form {
+  background-color: white;
+  vertical-align: middle;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  opacity: 95%;
+}
+v-text-field {
+  border-radius: 1rem;
 }
 </style>
