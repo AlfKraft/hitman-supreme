@@ -4,13 +4,23 @@
   <v-form>
     <v-text-field label="Username"></v-text-field>
     <v-text-field type="password" label="Password"></v-text-field>
-    <v-btn>Log In</v-btn>
+    <v-btn @click="login">Log In</v-btn>
   </v-form>
 </v-container>
 </template>
 
 <script setup>
+import {inject} from "vue";
 
+const axios = inject('axios');
+
+async function login(){
+    axios.get("/home/login")
+      .then(response => {
+        console.log(response)
+      })
+
+}
 </script>
 
 <style scoped>

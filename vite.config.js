@@ -39,7 +39,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '^/home':{
-        target: 'http://localhost:8080'
+        target: 'https://hitman-backend-hbnoqt56da-ew.a.run.app/'
       }
     }
   },
